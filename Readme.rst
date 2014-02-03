@@ -18,24 +18,23 @@ Requirements
 
 You need : 
 
-* a Centos 6 x86_64 box to use with Vagrant. (64 bit is mandatory if you use compression for xtrabackup stream, and you don't want to compile qpress by yourself)
+* a Debian 7 x86_64 box to use with Vagrant. (64 bit is mandatory if you use compression for xtrabackup stream, and you don't want to compile qpress by yourself)
 * VirtualBox - https://www.virtualbox.org/
 * a working Vagrant environment - http://vagrantup.com/
 * an Internet connection for the VM's
  
-If you don't have a Centos 6 base box, you can download mine at https://dl.dropboxusercontent.com/u/11697684/centos63.box
-This box includes puppet, firewall is disabled and has a nice motd ;)
+If you don't have a Debian 7 base box, you can create one: http://docs.vagrantup.com/v2/boxes/base.html
 
 How to use it ?
 ===============
 
 Once you have your requirements ready, it's very easy to deploy your boxes:: 
 
-   $ git clone https://github.com/lefred/percona-cluster.git
-   $ cd percona-cluster
+   $ git clone https://github.com/zyklide/percona-cluster-debian.git
+   $ cd percona-cluster-debian
    $ vagrant up 
 
-This will deploy the 3 machines: percona1, percona2 and percona3.
+This will deploy the 4 machines: percona1, percona2, percona3 and percona4.
 
 And this is all !
 
@@ -43,7 +42,7 @@ These recipes also install GLB (Galera Load Balancer) on percona1.
 
 You can read more on shinguz's post : http://www.fromdual.com/mysql-and-galera-load-balancer
 
-.. note:: Starting MySQL on percona2 and percona3 takes a lot of time as the sleep delay of the init script has been increased during SST.
+.. note:: Starting MySQL on percona2, percona3 and percona4 takes a lot of time as the sleep delay of the init script has been increased during SST.
 
 
 Details about the new functionalities
@@ -92,8 +91,9 @@ There are 2 puppet classes performing these actions:
 * class qpress 
 * class percona::cluster::xbstream 
 
-This is what you should see in mysql's error log if it worked as expected::
-OO
+This is what you should see in mysql's error log if it worked as expected:
+::
+
    WSREP_SST: [INFO] Streaming with xbstream (20130627 13:05:20.991)
    WSREP_SST: [INFO] xbstream requires manual cleanup of data directory before SST - lp:1193240 (20130627 13:05:20.998)
    ...
@@ -109,18 +109,10 @@ OO
 How to setup the environment
 ============================
 
-These are the step to run to be able to setup everything you need.
+These are the steps to run to be able to setup everything you need.
 
 VirtualBox
 ----------
-
-On RedHat/CentOS/Fedora...
-
-::
-
-   # yum install virtualbox
-
-On Ubuntu/Debian
 
 ::
 
@@ -130,17 +122,17 @@ On Ubuntu/Debian
 Vagrant
 -------
 
-I use Ruby gem to install Vagrant::
+::
 
-   # gem install vagrant
+   # apt-get install vagrant
   
 Import the base box
 ...................
 
 ::
 
-   # wget https://dl.dropboxusercontent.com/u/11697684/centos63.box
-   # vagrant box add centos63 centos63.box   
-   # rm centos63.box (if you don't need a copy)
+   # name your base box as debian7_64.box
+   # vagrant box add debian7_64 debian7_64.box   
+   # rm debian7_64.box (if you don't need a copy)
    
    
