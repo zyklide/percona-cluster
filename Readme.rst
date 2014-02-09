@@ -1,3 +1,6 @@
+
+This is a Fork of https://github.com/lefred/percona-cluster to make it work with Debian.
+
 Percona XtraDB Cluster : Vagrant & pupppet recipes
 **************************************************
 
